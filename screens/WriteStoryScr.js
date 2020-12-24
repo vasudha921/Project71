@@ -5,16 +5,20 @@ import db from '../config';
 import firebase from 'firebase';
 
 export default class WriteStoryScr extends React.Component{
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state={
             title:'',
             author:''
         }
     }
-    sumbitStory(){
-      db.collection("Stories").doc(this.state.title).get()
-      db.collection("Stories").doc(this.state.author).get()
+    sumbitStory=()=>{
+      db.collection("Stories").add({
+        title: this.state.title,
+        author: this.state.author,
+        
+    })
+      
     }
     render(){
       return(
@@ -29,14 +33,14 @@ export default class WriteStoryScr extends React.Component{
                 <Text style = {styles.text}>Title of the Book:- </Text>
                <TextInput
                   style={styles.inputBox}
-                  onChangeText={text => {
+                  onChangeText={(text) => {
                     this.setState({ title: text });
                   }}
                   value={this.state.title}
                 />
              <Text style = {styles.text2}>Author of the Book:- </Text>
              <TextInput 
-                onChangeText={text => {
+                onChangeText={(text) => {
                  this.setState({ author:text });
                }}
                style={styles.inputBox2}
